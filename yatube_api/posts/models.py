@@ -10,7 +10,7 @@ class Group(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.title
+        return self.title[:30]
 
 
 class Post(models.Model):
@@ -30,7 +30,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text
+        return self.text[:30]
 
 
 class Comment(models.Model):
@@ -44,3 +44,10 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True
     )
+
+    def __str__(self):
+        return (
+            f'Автор: {self.author.username}, '
+            f'пост №{self.post_id}, '
+            f'комментарий: {self.text[:30]}'
+        )
